@@ -1,6 +1,7 @@
 import { Home, Pizza, UtensilsCrossed } from "lucide-react";
 
 import { NavLink } from "./NavLink";
+import { ThemeToggle } from "./theme/ThemeToggle";
 import { Separator } from "./ui/separator";
 
 export function Header() {
@@ -22,6 +23,10 @@ export function Header() {
             Pedidos
           </NavLink>
         </nav>
+
+        <div className="ml-auto">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
