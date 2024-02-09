@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { registerRestaurant } from "@/api/registerRestaurant";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,21 +31,27 @@ export function SignUp() {
     resolver: zodResolver(signUpForm)
   });
 
+  const { mutateAsync: registerRestaurantFn } = useMutation({
+    mutationFn: registerRestaurant
+  });
+
   const handleSubmit = HookFormHandleSubmit(async (data) => {
-    console.log(data);
+    try {
+      await registerRestaurantFn(data);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    toast.success("Restaurante cadastrado com sucesso!", {
-      action: {
-        label: "Login",
-        onClick: () => navigate("/sign-in")
-      },
-      actionButtonStyle: {
-        backgroundColor: "#a3d9a5",
-        color: "#ffffff"
-      }
-    });
+      toast.success("Restaurante cadastrado com sucesso!", {
+        action: {
+          label: "Login",
+          onClick: () => navigate(`/sign-in?email=${data.email}`)
+        },
+        actionButtonStyle: {
+          backgroundColor: "#a3d9a5",
+          color: "#ffffff"
+        }
+      });
+    } catch {
+      toast.error("Erro ao cadastrar o restaurante.");
+    }
   });
 
   return (
