@@ -4,8 +4,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { getManagedRestaurant } from "@/api/getManagedRestaurant";
+import {
+  getManagedRestaurant,
+  GetManagedRestaurantResponse
+} from "@/api/getManagedRestaurant";
 import { updateProfile } from "@/api/updateProfile";
+import { queryClient } from "@/lib/react-query";
 
 import { Button } from "./ui/button";
 import {
@@ -35,7 +39,23 @@ export function StoreProfileDialog() {
   });
 
   const { mutateAsync: updateProfileFn } = useMutation({
-    mutationFn: updateProfile
+    mutationFn: updateProfile,
+    onSuccess: (_, { name, description }) => {
+      const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
+        "managed-restaurant"
+      ]);
+
+      if (cached) {
+        queryClient.setQueryData<GetManagedRestaurantResponse>(
+          ["managed-restaurant"],
+          {
+            ...cached,
+            name,
+            description
+          }
+        );
+      }
+    }
   });
 
   const {
