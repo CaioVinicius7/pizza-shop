@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MetricCardSkeleton } from "./MetricCardSkeleton";
 
 export function MonthOrdersAmountCard() {
-  const { data: monthOrdersAmount, isFetching: isLoadingMonthOrdersAmount } =
+  const { data: monthOrdersAmount, isLoading: isLoadingMonthOrdersAmount } =
     useQuery({
       queryKey: ["metrics", "month-orders-amount"],
       queryFn: getMonthOrdersAmount

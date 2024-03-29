@@ -15,7 +15,7 @@ const COLORS = [
 ];
 
 export function PopularProductsChart() {
-  const { data: popularProducts, isFetching: isLoadingPopularProducts } =
+  const { data: popularProducts, isLoading: isLoadingPopularProducts } =
     useQuery({
       queryKey: ["metrics", "popular-products"],
       queryFn: getPopularProducts

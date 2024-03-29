@@ -32,7 +32,7 @@ export function RevenueChart() {
 
   const {
     data: dailyRevenueInPeriod,
-    isFetching: isLoadingDailyRevenueInPeriod
+    isLoading: isLoadingDailyRevenueInPeriod
   } = useQuery({
     queryKey: ["metrics", "daily-revenue-in-period", dateRange],
     queryFn: () =>

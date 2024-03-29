@@ -9,7 +9,7 @@ import { MetricCardSkeleton } from "./MetricCardSkeleton";
 export function MonthCanceledOrdersAmountCard() {
   const {
     data: monthCanceledOrdersAmount,
-    isFetching: isLoadingMonthCanceledOrdersAmount
+    isLoading: isLoadingMonthCanceledOrdersAmount
   } = useQuery({
     queryKey: ["metrics", "month-canceled-orders-amount"],
     queryFn: getMonthCanceledOrdersAmount
