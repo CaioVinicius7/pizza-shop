@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { subDays } from "date-fns";
+import { Loader2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DateRange } from "react-day-picker";
 import {
@@ -29,7 +30,10 @@ export function RevenueChart() {
     to: new Date()
   });
 
-  const { data: dailyRevenueInPeriod } = useQuery({
+  const {
+    data: dailyRevenueInPeriod,
+    isFetching: isLoadingDailyRevenueInPeriod
+  } = useQuery({
     queryKey: ["metrics", "daily-revenue-in-period", dateRange],
     queryFn: () =>
       getDailyRevenueInPeriod({
@@ -63,7 +67,7 @@ export function RevenueChart() {
       </CardHeader>
 
       <CardContent>
-        {!!chartData && (
+        {!!chartData && !isLoadingDailyRevenueInPeriod ? (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart
               data={chartData}
@@ -96,6 +100,10 @@ export function RevenueChart() {
               />
             </LineChart>
           </ResponsiveContainer>
+        ) : (
+          <div className="flex h-[240px] w-full items-center justify-center">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
         )}
       </CardContent>
     </Card>
