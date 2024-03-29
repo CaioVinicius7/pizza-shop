@@ -4,11 +4,14 @@ import { Utensils } from "lucide-react";
 import { getDayOrdersAmount } from "@/api/getDayOrdersAmount";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { MetricCardSkeleton } from "./MetricCardSkeleton";
+
 export function DayOrdersAmountCard() {
-  const { data: dayOrdersAmount } = useQuery({
-    queryKey: ["metrics", "day-orders-amount"],
-    queryFn: getDayOrdersAmount
-  });
+  const { data: dayOrdersAmount, isFetching: isLoadingDayOrdersAmount } =
+    useQuery({
+      queryKey: ["metrics", "day-orders-amount"],
+      queryFn: getDayOrdersAmount
+    });
 
   return (
     <Card>
@@ -19,7 +22,7 @@ export function DayOrdersAmountCard() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        {!!dayOrdersAmount && (
+        {!!dayOrdersAmount && !isLoadingDayOrdersAmount ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {dayOrdersAmount.amount.toLocaleString("pt-BR")}
@@ -38,6 +41,8 @@ export function DayOrdersAmountCard() {
               em relação a ontem
             </p>
           </>
+        ) : (
+          <MetricCardSkeleton />
         )}
       </CardContent>
     </Card>

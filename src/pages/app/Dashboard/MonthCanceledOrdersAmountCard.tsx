@@ -4,8 +4,13 @@ import { Ban } from "lucide-react";
 import { getMonthCanceledOrdersAmount } from "@/api/getMonthCanceledOrdersAmount";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { MetricCardSkeleton } from "./MetricCardSkeleton";
+
 export function MonthCanceledOrdersAmountCard() {
-  const { data: monthCanceledOrdersAmount } = useQuery({
+  const {
+    data: monthCanceledOrdersAmount,
+    isFetching: isLoadingMonthCanceledOrdersAmount
+  } = useQuery({
     queryKey: ["metrics", "month-canceled-orders-amount"],
     queryFn: getMonthCanceledOrdersAmount
   });
@@ -21,7 +26,7 @@ export function MonthCanceledOrdersAmountCard() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        {!!monthCanceledOrdersAmount && (
+        {!!monthCanceledOrdersAmount && !isLoadingMonthCanceledOrdersAmount ? (
           <>
             <span className="text-2xl font-bold tracking-tight">
               {monthCanceledOrdersAmount.amount.toLocaleString("pt-BR")}
@@ -40,6 +45,8 @@ export function MonthCanceledOrdersAmountCard() {
               em relação ao mês passado
             </p>
           </>
+        ) : (
+          <MetricCardSkeleton />
         )}
       </CardContent>
     </Card>
