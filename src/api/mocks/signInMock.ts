@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 
 import type { SignInParams } from "../signIn";
 
-export const SignInMock = http.post<never, SignInParams>(
+export const signInMock = http.post<never, SignInParams>(
   "/authenticate",
   async ({ request }) => {
     const { email } = await request.json();
