@@ -17,7 +17,7 @@ import { queryClient } from "@/lib/react-query";
 import { OrderDetails } from "./OrderDetails";
 import { OrderStatus } from "./OrderStatus";
 
-type OrderStatus =
+type OrderStatusType =
   | "pending"
   | "canceled"
   | "processing"
@@ -28,7 +28,7 @@ interface OrderTableRowProps {
   order: {
     orderId: string;
     customerName: string;
-    status: OrderStatus;
+    status: OrderStatusType;
     total: number;
     createdAt: string;
   };
