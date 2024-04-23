@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-import { getOrderDetail } from "@/api/getOrderDetail";
+import { getOrderDetails } from "@/api/getOrderDetails";
 import {
   DialogContent,
   DialogDescription,
@@ -30,7 +30,7 @@ interface OrderDetailsProps {
 export function OrderDetails({ open, orderId }: OrderDetailsProps) {
   const { data: order, isLoading: isLoadingOrder } = useQuery({
     queryKey: ["order", orderId],
-    queryFn: () => getOrderDetail({ orderId }),
+    queryFn: () => getOrderDetails({ orderId }),
     enabled: open
   });
 
