@@ -21,7 +21,7 @@ test.describe("Sign up", () => {
 
     const toast = page.getByText("Restaurante cadastrado com sucesso!");
 
-    expect(toast).toBeVisible();
+    await expect(toast).toBeVisible();
   });
 
   test("Sign up with error", async ({ page }) => {
@@ -34,7 +34,7 @@ test.describe("Sign up", () => {
 
     const toast = page.getByText("Erro ao cadastrar o restaurante.");
 
-    expect(toast).toBeVisible();
+    await expect(toast).toBeVisible();
   });
 
   test("Navigate to login restaurant page", async ({ page }) => {

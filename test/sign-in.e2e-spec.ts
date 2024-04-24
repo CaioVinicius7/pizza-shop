@@ -19,7 +19,7 @@ test.describe("Sign in", () => {
       "Enviamos um link de autenticação para seu e-mail."
     );
 
-    expect(toast).toBeVisible();
+    await expect(toast).toBeVisible();
   });
 
   test("Sign in with wrong credentials", async ({ page }) => {
@@ -30,7 +30,7 @@ test.describe("Sign in", () => {
       "Ocorreu um erro ao enviar um link autenticação para seu e-mail."
     );
 
-    expect(toast).toBeVisible();
+    await expect(toast).toBeVisible();
   });
 
   test("Navigate to new restaurant page", async ({ page }) => {
